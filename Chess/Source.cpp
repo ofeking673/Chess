@@ -61,7 +61,7 @@ void main()
 		
 		std::pair<string, string> locationPair = Board::getLocationPair(msgFromGraphics);
 
-		BasePiece* piece = brd->findKeyByValue(locationPair.first);
+		BasePiece* piece = brd->pieces[locationPair.first];
 		
 
 		if (piece)
@@ -69,7 +69,8 @@ void main()
 			int ok = piece->move(locationPair.second, &brd->pieces);
 			if (ok == 0 || ok == 1)
 			{
-				brd->pieces[piece] = locationPair.second;
+				brd->pieces.erase(locationPair.first);
+				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
 			}
 
