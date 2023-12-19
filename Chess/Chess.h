@@ -8,3 +8,7 @@
 #include "Queen.h"
 #include "Rook.h"
 #include "Pawn.h"
+#include <iostream>
+#include <map>
+#include <cstring>
+#include <string>

@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Chess.h" // chess.h is for mass importing
-#include <iostream>
-#include <map>
-#include <cstring>
 
 class Board
 {
@@ -12,7 +9,7 @@ private:
 	bool turn;
 
 public:
-	char* board; // for later send
+	char board[66]; // for later send
 	Board();
 	~Board();
 	

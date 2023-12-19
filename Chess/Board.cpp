@@ -2,6 +2,7 @@
 
 Board::Board()
 {
+	this->board[0] = ' '; // for loading the board (warning or somethign idk)
 
 	char board[66] = { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
 				  'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
@@ -10,8 +11,8 @@ Board::Board()
 				  '#', '#', '#', '#', '#', '#', '#', '#',
 				  '#', '#', '#', '#', '#', '#', '#', '#',
 				  'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-				  'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r', 1, '\0'}; //initialize board, starting player and null.
-	this->board = board; //put value inside board
+				  'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r', '1', '\0'}; //initialize board, starting player and null.
+	strcpy_s(this->board, board); //put value inside board
 	/*
 	R N B Q K B N R
 	P P P P P P P P
@@ -54,19 +55,20 @@ Board::~Board()
 void Board::takePiece(std::string location)
 {
 	BasePiece* piece = findKeyByValue(location);
-	if (piece == nullptr)
+	if (piece == nullptr) //if exists
 	{
 		return;
 	}
+	pieces.erase(piece);
 }
 
 BasePiece* Board::findKeyByValue(std::string value)
 {
-	for (auto& pair : this->pieces)
+	for (auto& pair : this->pieces) // loop on every pair in map
 	{
-		if (pair.second == value)
-		{
-			return pair.first;
+		if (pair.second == value) //if second( location) is value
+		{ 
+			return pair.first; //return the piece within that locatio[n
 		}
 	}
 	return nullptr;
