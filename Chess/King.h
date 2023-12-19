@@ -9,9 +9,9 @@ public:
 	//again no use for deconstructor, so we use default deconstructor
 
 
-	bool moveCheck(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr) override;
-	bool isCheck(std::map<BasePiece*, std::string>* pieces_ptr) override;
-	int move(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr) override;
+	bool moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
+	bool isCheck(std::map<std::string, BasePiece*>* pieces_ptr) override;
+	int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
 
 };
 

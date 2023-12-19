@@ -5,9 +5,9 @@
 Board::Board()
 {
 	BasePiece* ok = new King("a8", 'w');
-	this->pieces.insert(std::make_pair(ok, std::string("a8")));
+	this->pieces.insert(std::make_pair(std::string("a8"), ok));
 	ok = new Rook("h8", 'b');
-	this->pieces.insert(std::make_pair(ok, std::string("h8")));
+	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 
 	/*
 	* this->pieces.insert(knight, "b8");
@@ -32,28 +32,14 @@ Board::Board()
 }
 
 Board::~Board()
-{
-	delete this->board;
-}
+{}
 
 void Board::takePiece(std::string location)
 {
-	BasePiece* piece = findKeyByValue(location);
+	BasePiece* piece = pieces[location];
 	if (piece == nullptr) //if exists
 	{
 		return;
 	}
-	pieces.erase(piece);
-}
-
-std::string Board::findKeyByValue(BasePiece* value)
-{
-	for (auto& pair : this->pieces) // loop on every pair in map
-	{
-		if (pair.second == value) //if second( location) is value
-		{ 
-			return pair.first; //return the piece within that locatio[n
-		}
-	}
-	return nullptr;
+	pieces.erase(location);
 }

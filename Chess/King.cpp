@@ -1,6 +1,6 @@
 #include "King.h"
 
-bool King::moveCheck(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr)
+bool King::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
 {
 	char currentCol = getLocation()[0];
 	char currentRow = getLocation()[1];
@@ -10,12 +10,12 @@ bool King::moveCheck(std::string newLocation, std::map<BasePiece*, std::string>*
 	return (std::abs(newRow - currentRow) <= 1 && std::abs(newCol - currentCol) <= 1); //need to check if +1 in any direction
 }
 
-bool King::isCheck(std::map<BasePiece*, std::string>* pieces_ptr)
+bool King::isCheck(std::map<std::string, BasePiece*>* pieces_ptr)
 {
 	return false;
 }
 
-int King::move(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr)
+int King::move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
 {
 	if (moveCheck(newLocation, pieces_ptr))
 	{
