@@ -64,7 +64,7 @@ void Board::takePiece(std::string location)
 	pieces.erase(piece);
 }
 
-BasePiece* Board::findKeyByValue(std::string value)
+std::string Board::findKeyByValue(BasePiece* value)
 {
 	for (auto& pair : this->pieces) // loop on every pair in map
 	{

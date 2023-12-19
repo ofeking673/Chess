@@ -11,9 +11,9 @@ private:
 public:
 	BasePiece(std::string location, char color) : _location(location), color(color) {};
 	//no use for constructor because we dont use anything, so we use c++ default constructor
-	virtual int move(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr) = 0;
-	virtual bool moveCheck(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr) = 0;
-	virtual bool isCheck(std::map<BasePiece*, std::string>* pieces_ptr) = 0;
+	virtual int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) = 0;
+	virtual bool moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) = 0;
+	virtual bool isCheck(std::map<std::string, BasePiece*>* pieces_ptr) = 0;
 
 	char getColor() { return this->color; };
 	std::string getLocation() { return this->_location; };
