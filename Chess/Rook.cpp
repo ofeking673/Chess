@@ -11,16 +11,17 @@ bool Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>*
         return false;
     }
 
+    std::string iterLine = newLocation;
+
     for (i = 1; i < BoardLength; i++) {
-        
+        iterLine[0] += same_x * 1;
+        iterLine[1] += same_y * 1;
+        if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
+            return false;
+        }
     }
 
     return true;
-}
-
-bool Rook::isCheck(std::map<std::string, BasePiece*>* pieces_ptr)
-{
-    return false;
 }
 
 int Rook::move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)

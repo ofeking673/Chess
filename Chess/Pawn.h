@@ -12,7 +12,6 @@
 //
 //	
 //	bool moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
-//	bool isCheck(std::map<std::string, BasePiece*>* pieces_ptr) override;
 //	int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
 //
 //};

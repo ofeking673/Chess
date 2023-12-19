@@ -26,7 +26,7 @@ Board::Board()
 	r n b q k b n r
 	*/
 	BasePiece* ok = new Rook("a8", 'w');
-	this->pieces.insert(std::make_pair(ok, std::string("a8")));
+	this->pieces.insert(std::make_pair(std::string("a8"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");
@@ -56,12 +56,7 @@ Board::~Board()
 
 void Board::takePiece(std::string location)
 {
-	BasePiece* piece = findKeyByValue(location);
-	if (piece == nullptr) //if exists
-	{
-		return;
-	}
-	pieces.erase(piece);
+	pieces.erase(location);
 }
 
 std::string Board::findKeyByValue(BasePiece* value)

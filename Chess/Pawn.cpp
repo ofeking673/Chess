@@ -5,11 +5,6 @@
 //	return false;
 //}
 //
-//bool Pawn::isCheck(std::map<std::string, BasePiece*>* pieces_ptr)
-//{
-//	return false;
-//}
-//
 //void Pawn::move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
 //{
 //}

@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 #include <iostream>
+#include <map>
 
 class BasePiece
 {
@@ -13,12 +14,12 @@ public:
 	//no use for constructor because we dont use anything, so we use c++ default constructor
 	virtual int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) = 0;
 	virtual bool moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) = 0;
-	virtual bool isCheck(std::map<std::string, BasePiece*>* pieces_ptr) = 0;
+	virtual bool isCheck(Board* brd);
 
-	char getColor() { return this->color; };
-	std::string getLocation() { return this->_location; };
-	void setLocation(std::string location) { this->_location = location; };
+	char getColor();
+	std::string getLocation();
+	void setLocation(std::string location);
 	
-	std::pair<std::string, std::string> getLocationPair(std::string location) { return std::pair<std::string, std::string>(location.substr(0,2),location.substr(2,2)); };
+	std::pair<std::string, std::string> getLocationPair(std::string location);
 };
 
