@@ -4,29 +4,11 @@
 
 Board::Board()
 {
-	this->board[0] = ' '; // for loading the board (warning or somethign idk)
-
-	char board[BoardSize] = { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
-				  'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-				  '#', '#', '#', '#', '#', '#', '#', '#',
-				  '#', '#', '#', '#', '#', '#', '#', '#',
-				  '#', '#', '#', '#', '#', '#', '#', '#',
-				  '#', '#', '#', '#', '#', '#', '#', '#',
-				  'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-				  'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r', '1', '\0'}; //initialize board, starting player and null.
-	strcpy_s(this->board,BoardSize, board); //put value inside board
-	/*
-	R N B Q K B N R
-	P P P P P P P P
-	# # # # # # # #
-	# # # # # # # #
-	# # # # # # # #
-	# # # # # # # #
-	p p p p p p p p
-	r n b q k b n r
-	*/
-	BasePiece* ok = new Rook("a8", 'w');
+	BasePiece* ok = new King("a8", 'w');
 	this->pieces.insert(std::make_pair(ok, std::string("a8")));
+	ok = new Rook("h8", 'b');
+	this->pieces.insert(std::make_pair(ok, std::string("h8")));
+
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");

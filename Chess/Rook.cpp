@@ -21,7 +21,7 @@ bool Rook::isCheck(std::map<BasePiece*, std::string>* pieces_ptr)
 
 int Rook::move(std::string newLocation, std::map<BasePiece*, std::string>* pieces_ptr)
 {
-    if (moveCheck(newLocation))
+    if (moveCheck(newLocation, pieces_ptr))
     {
         this->setLocation(newLocation);
         return 1;

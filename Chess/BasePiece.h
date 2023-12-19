@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 #include <iostream>
+#include <map>
 
 class BasePiece
 {

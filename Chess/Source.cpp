@@ -66,7 +66,7 @@ void main()
 
 		if (piece)
 		{
-			int ok = piece->move(locationPair.second);
+			int ok = piece->move(locationPair.second, &brd->pieces);
 			if (ok == 0 || ok == 1)
 			{
 				brd->pieces[piece] = locationPair.second;

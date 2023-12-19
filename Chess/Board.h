@@ -12,7 +12,6 @@ private:
 
 public:
 	std::map<BasePiece*, std::string> pieces;
-	char board[BoardSize]; // for later send
 	Board();
 	~Board();
 	
