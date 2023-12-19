@@ -23,9 +23,9 @@ Board::Board()
 	p p p p p p p p
 	r n b q k b n r
 	*/
-	
+	BasePiece* ok = new Rook("a8", 'w');
+	this->pieces.insert(std::make_pair(ok, std::string("a8")));
 	/*
-	* this->pieces.insert(rook, "a8");
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");
 	* this->pieces.insert(queen, d8);
