@@ -2,6 +2,8 @@
 
 #include "Chess.h" // chess.h is for mass importing
 
+#define BoardSize 66
+
 class Board
 {
 private:
@@ -10,7 +12,7 @@ private:
 
 public:
 	std::map<BasePiece*, std::string> pieces;
-	char board[66]; // for later send
+	char board[BoardSize]; // for later send
 	Board();
 	~Board();
 	

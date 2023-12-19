@@ -1,10 +1,12 @@
 #include "Board.h"
 
+
+
 Board::Board()
 {
 	this->board[0] = ' '; // for loading the board (warning or somethign idk)
 
-	char board[66] = { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
+	char board[BoardSize] = { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
 				  'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
 				  '#', '#', '#', '#', '#', '#', '#', '#',
 				  '#', '#', '#', '#', '#', '#', '#', '#',
@@ -12,7 +14,7 @@ Board::Board()
 				  '#', '#', '#', '#', '#', '#', '#', '#',
 				  'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
 				  'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r', '1', '\0'}; //initialize board, starting player and null.
-	strcpy_s(this->board, board); //put value inside board
+	strcpy_s(this->board,BoardSize, board); //put value inside board
 	/*
 	R N B Q K B N R
 	P P P P P P P P
