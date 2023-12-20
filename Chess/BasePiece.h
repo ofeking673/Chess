@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 
+class BasePiece;
 class BasePiece
 {
 private:

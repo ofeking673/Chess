@@ -1,9 +1,5 @@
 #pragma once
-
-#include <string>
-#include <map>
 #include "Board.h"
-
 
 class King : public BasePiece
 {
