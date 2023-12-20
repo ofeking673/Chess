@@ -29,6 +29,8 @@ Board::Board()
 	this->pieces.insert(std::make_pair(std::string("a8"), ok));
 	ok = new Rook("h8", 'b');
 	this->pieces.insert(std::make_pair(std::string("h8"), ok));
+	ok = new King("h7", 'b');
+	this->pieces.insert(std::make_pair(std::string("h7"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");

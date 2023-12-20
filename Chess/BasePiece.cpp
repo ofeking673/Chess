@@ -19,7 +19,7 @@ bool BasePiece::isCheck(Board* brd)
 		}
 	}
 
-	return (this->moveCheck(kingCords, &(brd->pieces)));
+	return (this->moveCheck(kingCords, &(brd->pieces)) ? 8 : 1);
 }
 
 char BasePiece::getColor()
