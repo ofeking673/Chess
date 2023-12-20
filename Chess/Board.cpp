@@ -18,7 +18,7 @@ Board::Board()
 				  '#', '#', '#', '#', '#', '#', '#', '#',
 				  'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
 				  'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r', '1', '\0'}; //initialize board, starting player and null.
-	strcpy_s(this->board,BoardSize, board); //put value inside board
+	strcpy_s(this->_board,BoardSize, board); //put value inside board
 	/*
 	R N B Q K B N R
 	P P P P P P P P
@@ -82,7 +82,7 @@ std::string Board::findBlackKingCords()
 
 bool Board::isBlackOnCheck()
 {
-	std::string kingCords = findBlackKingCords();// kingCords[0] = x_level | 
+	std::string kingCords = findBlackKingCords();// kingCords[0] = x_level | kingCords[0] = y_level
 	if (kingCords == "") {
 		//throw end of game, White wins
 	}
@@ -90,6 +90,7 @@ bool Board::isBlackOnCheck()
 	// check if fratened by pawn
 	//checks the next rows x+1(right square) and x-1(left square) 
 	if (_board[kingCords[1] * BoardLength + kingCords[0] + 1] == 'p' || _board[kingCords[1] + 1 * BoardLength + kingCords[0] - 1] == 'p') {
-
+		return true;
 	}
+
 }
