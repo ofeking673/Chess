@@ -1,5 +1,7 @@
 #include "BasePiece.h"
 
+#include "Board.h"
+
 bool BasePiece::isCheck(Board* brd)
 {
 	int i = 0, j = 0;
@@ -8,7 +10,7 @@ bool BasePiece::isCheck(Board* brd)
 	for (i = 0; i < BoardLength; i++) {//finds king cordinates
 		
 		for (j = 0; j < BoardLength; j++) {
-			if (brd->board[i * BoardLength + j] == 'K' + ((this->color) = 'w' ? ('k' - 'K') : 0)) {
+			if (brd->_board[i * BoardLength + j] == 'K' + ((this->color) = 'w' ? ('k' - 'K') : 0)) {
 				kingCords += char('a' + i);
 				kingCords += char('0' + i);
 				j = BoardLength;
@@ -17,7 +19,7 @@ bool BasePiece::isCheck(Board* brd)
 		}
 	}
 
-	this->moveCheck(kingCords, &(brd->pieces));
+	return (this->moveCheck(kingCords, &(brd->pieces)));
 }
 
 char BasePiece::getColor()

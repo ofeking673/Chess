@@ -5,10 +5,6 @@ class Board;
 
 Board::Board()
 {
-	BasePiece* ok = new King("a8", 'w');
-	this->pieces.insert(std::make_pair(std::string("a8"), ok));
-	ok = new Rook("h8", 'b');
-	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 
 	char board[BoardSize] = { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
 				  'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
@@ -29,8 +25,10 @@ Board::Board()
 	p p p p p p p p
 	r n b q k b n r
 	*/
-	BasePiece* ok = new Rook("a8", 'w');
+	BasePiece* ok = new King("a8", 'w');
 	this->pieces.insert(std::make_pair(std::string("a8"), ok));
+	ok = new Rook("h8", 'b');
+	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");

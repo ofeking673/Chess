@@ -1,5 +1,9 @@
 #pragma once
-#include "Board.h"
+#include "BasePiece.h"
+#include <iostream>
+#include <map>
+
+class Board;
 
 class King : public BasePiece
 {

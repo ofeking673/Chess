@@ -1,6 +1,11 @@
 #pragma once
-#include "Board.h"
+#include "BasePiece.h"
+#include <iostream>
 #include <map>
+
+#define BoardLength 8
+
+class Board;
 
 class Rook : public BasePiece
 {

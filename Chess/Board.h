@@ -4,17 +4,19 @@
 
 #define BoardLength 8
 #define BoardSize 66
+class BasePiece;
 
 class Board
 {
 private:
 
-	char _board[BoardSize];
+	
 	bool turn;
 	std::string findBlackKingCords();
 
 public:
 	std::map<std::string, BasePiece*> pieces;
+	char _board[BoardSize];
 
 	Board();
 	~Board();

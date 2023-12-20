@@ -67,11 +67,12 @@ void main()
 		if (piece)
 		{
 			int ok = piece->move(locationPair.second, &(brd->pieces));
-			if (ok == 0 || ok == 1)
+			if (ok == 0 || ok == 1 && brd->isTurn(piece))
 			{
 				brd->pieces.erase(locationPair.first);
 				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
+				brd->moveTurn();
 			}
 
 			// YOUR CODE
