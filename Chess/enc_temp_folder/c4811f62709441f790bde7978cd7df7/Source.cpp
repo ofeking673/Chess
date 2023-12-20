@@ -80,26 +80,24 @@ void main()
 
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
-
-			if (brd->isOnCheck(blackKing)) {
-				brd->isTurn(blackKing) ?
-					strcpy_s(msgToGraphics, std::to_string(4).c_str()) :
-					strcpy_s(msgToGraphics, std::to_string(1).c_str());
-			}
-
-			if (brd->isOnCheck(whiteKing)) {
-				brd->isTurn(whiteKing) ?
-					strcpy_s(msgToGraphics, std::to_string(1).c_str()) :
-					strcpy_s(msgToGraphics, std::to_string(4).c_str());
-
-			}
 		}
 		else
 		{
 			strcpy_s(msgToGraphics, std::to_string(2).c_str());
 		}
 		
+		if(brd->isOnCheck(blackKing)) {
+			brd->isTurn(blackKing) ? 
+				strcpy_s(msgToGraphics, std::to_string(4).c_str()) :
+				strcpy_s(msgToGraphics, std::to_string(1).c_str());
+		}
 		
+		if (brd->isOnCheck(whiteKing)) {
+			brd->isTurn(whiteKing) ?
+				strcpy_s(msgToGraphics, std::to_string(1).c_str()) :
+				strcpy_s(msgToGraphics, std::to_string(4).c_str());
+				
+		}
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);   
 

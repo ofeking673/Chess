@@ -31,6 +31,8 @@ Board::Board()
 	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 	ok = new King("h7", 'b');
 	this->pieces.insert(std::make_pair(std::string("h7"), ok));
+	ok = new Rook("g2", 'w');
+	this->pieces.insert(std::make_pair(std::string("g2"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");
@@ -58,7 +60,7 @@ Board::~Board()
 
 bool Board::isTurn(BasePiece* piece)
 {
-	return (piece->getColor() == (turn) ? 'b' : 'w');
+	return (piece->getColor() == ((turn) ? 'b' : 'w'));
 }
 
 void Board::moveTurn()
@@ -71,36 +73,15 @@ void Board::takePiece(std::string location)
 	pieces.erase(location);
 }
 
-std::string Board::findBlackKingCords()
+bool Board::isOnCheck(BasePiece* king)
 {
-	int i = 0, j = 0;
-	std::string kingCords = "";
+	for (auto piece : this->pieces) {
+		if (piece.second->getColor() != king->getColor() &&
+			piece.second->moveCheck(king->getLocation(), &(this->pieces))) {
 
-	for (i = 0; i < BoardLength; i++)
-	{
-		for (j = 0; j < BoardLength; j++)
-		{
-			if (this->_board[i * BoardLength + j] == 'K') {
-				kingCords[0] = 'a' + j;
-				kingCords[1] = '1' + i;
-				return kingCords;
-			}
+			return true;
 		}
 	}
-	return "";
-}
 
-bool Board::isBlackOnCheck()
-{
-	std::string kingCords = findBlackKingCords();// kingCords[0] = x_level | kingCords[1] = y_level
-	if (kingCords == "") {
-		//throw end of game, White wins
-	}
-
-	// check if threatened by pawn
-	//checks the next rows x+1(right square) and x-1(left square) 
-	if (_board[kingCords[1] * BoardLength + kingCords[0] + 1] == 'p' || _board[kingCords[1] + 1 * BoardLength + kingCords[0] - 1] == 'p') {
-		return true;
-	}
-
+	return false;
 }
