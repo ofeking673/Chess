@@ -91,12 +91,16 @@ void main()
 				}
 			}
 
+			if (!brd->isTurn(piece)) {// if the player tryes to mave a piece not on turn
+				ok = 2;
+			}
+
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
 				brd->pieces.erase(locationPair.first);
 				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
-
+				brd->moveTurn();
 			}
 			else {
 				piece->setLocation(pieceCords);

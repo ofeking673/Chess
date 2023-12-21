@@ -48,7 +48,7 @@ int Rook::move(std::string newLocation, std::map<std::string, BasePiece*>* piece
     if (moveCheck(newLocation, pieces_ptr))
     {
         this->setLocation(newLocation);
-        return 1;
+        return 0;
     }
     return 3;
 }
