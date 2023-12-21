@@ -74,7 +74,7 @@ void main()
 		{
 			//black turn
 			if (brd->isTurn(blackKing)) {
-				if (brd->isOnCheck(blackKing)) { 
+				if (brd->isOnCheck(blackKing)) {
 					ok = 4;
 				}
 				else if (brd->isOnCheck(whiteKing)) {
@@ -86,17 +86,17 @@ void main()
 				if (brd->isOnCheck(whiteKing)) {
 					ok = 4;
 				}
-				else if(brd->isOnCheck(blackKing)){
+				else if (brd->isOnCheck(blackKing)) {
 					ok = 1;
 				}
 			}
-			
+
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
 				brd->pieces.erase(locationPair.first);
 				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
-				brd->moveTurn();
+
 			}
 			else {
 				piece->setLocation(pieceCords);
@@ -104,19 +104,12 @@ void main()
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
 
+			// return result to graphics		
+			p.sendMessageToGraphics(msgToGraphics);
+
+			// get message from graphics
+			msgFromGraphics = p.getMessageFromGraphics();
 		}
-		else
-		{
-			strcpy_s(msgToGraphics, std::to_string(ok).c_str());
-		}
-
-
-		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);
-
-		// get message from graphics
-		msgFromGraphics = p.getMessageFromGraphics();
 	}
-
 	p.close();
 }
