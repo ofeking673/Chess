@@ -18,7 +18,7 @@ bool Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>*
 
         for (int i = 1; i < diff; i++) {
             std::string iterLine = same_x ? std::string(1, this->getLocation()[0]) + char(this->getLocation()[1] + i) :
-                char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]);
+                char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]); // if same x, go over y, if not, enlarge x
 
             if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
                 return false;
@@ -27,10 +27,11 @@ bool Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>*
     }
     else
     {
+        //if rook is going in negative directions (down or left)
         for (int i = -1; i > diff; i--)
         {
             std::string iterLine = same_x ? std::string(1, this->getLocation()[0]) + char(this->getLocation()[1] + i) :
-                char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]);
+                char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]); // if same x, y goes DOWN, if not, x goes DOWN
 
             if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
                 return false;

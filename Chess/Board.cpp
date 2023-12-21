@@ -52,7 +52,7 @@ Board::Board()
 	* this->pieces.insert(knight, g1)
 	* this->pieces.insert(rook, h1)
 	*/
-	this->turn = false;
+	this->turn = true;
 }
 
 Board::~Board()

@@ -75,7 +75,7 @@ void main()
 				brd->pieces.erase(locationPair.first);
 				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
-				brd->moveTurn();
+				
 			}
 
 			// YOUR CODE
@@ -93,11 +93,17 @@ void main()
 					strcpy_s(msgToGraphics, std::to_string(4).c_str());
 
 			}
+			if (ok == 0 || ok == 1 && brd->isTurn(piece))
+			{
+				brd->moveTurn();
+			}
 		}
 		else
 		{
 			strcpy_s(msgToGraphics, std::to_string(2).c_str());
 		}
+
+		
 		
 		
 		// return result to graphics		
