@@ -13,7 +13,6 @@ private:
 	
 	bool turn;
 
-	std::string findBlackKingCords();
 public:
 	std::map<std::string, BasePiece*> pieces;
 	char _board[BoardSize];

@@ -52,7 +52,7 @@ Board::Board()
 	* this->pieces.insert(knight, g1)
 	* this->pieces.insert(rook, h1)
 	*/
-	this->turn = false;
+	this->turn = true;
 }
 
 Board::~Board()
@@ -75,7 +75,7 @@ void Board::takePiece(std::string location)
 
 bool Board::isOnCheck(BasePiece* king)
 {
-	for (auto piece : this->pieces) {
+	for (auto& piece : this->pieces) {
 		if (piece.second->getColor() != king->getColor() &&
 			piece.second->moveCheck(king->getLocation(), &(this->pieces))) {
 
