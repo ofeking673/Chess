@@ -66,33 +66,43 @@ void main()
 
 		BasePiece* piece = brd->pieces[locationPair.first];
 		
+		int ok;
 
-		if (piece)
+		if (piece != nullptr)
 		{
-			int ok = piece->move(locationPair.second, &(brd->pieces));
-			if (ok == 0 || ok == 1 && brd->isTurn(piece))
+			try {
+				ok = piece->move(locationPair.second, &(brd->pieces));
+			}
+			catch (std::exception)
 			{
-				brd->pieces.erase(locationPair.first);
+				continue;
+			}
+
+			if (ok == 0 || ok == 1 && brd->isTurn(piece)) //if correct turn and move makes sense
+			{
+
 				brd->pieces[locationPair.second] = piece;
+				brd->pieces.erase(locationPair.first);
 				piece->setLocation(locationPair.second);
 				
 			}
 
-			// YOUR CODE
-			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
-
-			if (brd->isOnCheck(blackKing)) {
+			if (brd->isOnCheck(blackKing)) { //check is black king is in check
 				brd->isTurn(blackKing) ?
 					strcpy_s(msgToGraphics, std::to_string(4).c_str()) :
 					strcpy_s(msgToGraphics, std::to_string(1).c_str());
 			}
 
-			if (brd->isOnCheck(whiteKing)) {
+			if (brd->isOnCheck(whiteKing)) { //if white king is in check
 				brd->isTurn(whiteKing) ?
 					strcpy_s(msgToGraphics, std::to_string(1).c_str()) :
 					strcpy_s(msgToGraphics, std::to_string(4).c_str());
 
 			}
+
+			// YOUR CODE
+			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
+
 			if (ok == 0 || ok == 1 && brd->isTurn(piece))
 			{
 				brd->moveTurn();

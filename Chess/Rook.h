@@ -11,6 +11,7 @@ class Rook : public BasePiece
 {
 public:
 	Rook(std::string location, char color) : BasePiece(location, color) {};
+	Rook(BasePiece* piece) : BasePiece(piece->getLocation(), piece->getColor()) {};
 	//again no use for constructor, so we use default constructor
 
 	
