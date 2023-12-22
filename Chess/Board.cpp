@@ -85,3 +85,9 @@ bool Board::isOnCheck(BasePiece* king)
 
 	return false;
 }
+
+void Board::changePieceLocation(std::string newCords, BasePiece* piece){
+	this->pieces.erase(piece->getLocation());
+	this->pieces[newCords] = piece;
+	piece->setLocation(newCords);
+}

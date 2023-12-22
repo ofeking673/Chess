@@ -66,9 +66,8 @@ void main()
 
 		BasePiece* piece = brd->pieces[locationPair.first];
 
-		string pieceCords = piece->getLocation(); // contains the cords piece had before moving
 		int ok = piece->move(locationPair.second, &(brd->pieces));
-		piece->setLocation(locationPair.second);
+		brd.;
 
 		if (piece)
 		{
@@ -97,13 +96,10 @@ void main()
 
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
-				brd->pieces.erase(locationPair.first);
-				brd->pieces[locationPair.second] = piece;
-				piece->setLocation(locationPair.second);
 				brd->moveTurn();
 			}
 			else {
-				piece->setLocation(pieceCords);
+				brd->pieces[locationPair.second]->setLocation(locationPair.second);
 			}
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation

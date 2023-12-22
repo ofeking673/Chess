@@ -20,6 +20,7 @@ public:
 	Board();
 	~Board();
 
+	void changePieceLocation(std::string newCords, BasePiece* piece);
 	bool isTurn(BasePiece* piece);
 	void moveTurn();
 	void takePiece(std::string location);
