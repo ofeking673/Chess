@@ -75,7 +75,7 @@ void Board::takePiece(std::string location)
 
 bool Board::isOnCheck(BasePiece* king)
 {
-	for (auto piece : this->pieces) {
+	for (auto& piece : this->pieces) {
 		if (piece.second->getColor() != king->getColor() &&
 			piece.second->moveCheck(king->getLocation(), &(this->pieces))) {
 

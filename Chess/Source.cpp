@@ -1,6 +1,6 @@
 /*
 This file servers as an example of how to use Pipe.h file.
-It is recommended to use the following code in your project, 
+It is recommended to use the following code in your project,
 in order to read and write information from and to the Backend
 */
 
@@ -18,10 +18,10 @@ void main()
 {
 	srand(time_t(NULL));
 
-	
+
 	Pipe p;
 	bool isConnect = p.connect();
-	
+
 	string ans;
 	while (!isConnect)
 	{
@@ -35,20 +35,20 @@ void main()
 			Sleep(5000);
 			isConnect = p.connect();
 		}
-		else 
+		else
 		{
 			p.close();
 			return;
 		}
 	}
-	
+
 	Board* brd = new Board();
 	char msgToGraphics[1024];
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
 	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1");
-	
+
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
@@ -61,67 +61,59 @@ void main()
 	{
 		// should handle the string the sent from graphics
 		// according the protocol. Ex: e2e4           (move e2 to e4)
-		
+
 		std::pair<string, string> locationPair = Board::getLocationPair(msgFromGraphics);
 
 		BasePiece* piece = brd->pieces[locationPair.first];
-		
-		int ok;
 
-		if (piece != nullptr)
+		string pieceCords = piece->getLocation(); // contains the cords piece had before moving
+		int ok = piece->move(locationPair.second, &(brd->pieces));
+		piece->setLocation(locationPair.second);
+
+		if (piece)
 		{
-			try {
-				ok = piece->move(locationPair.second, &(brd->pieces));
+			//black turn
+			if (brd->isTurn(blackKing)) {
+				if (brd->isOnCheck(blackKing)) {
+					ok = 4;
+				}
+				else if (brd->isOnCheck(whiteKing)) {
+					ok = 1;
+				}
 			}
-			catch (std::exception)
-			{
-				continue;
+			//white turn
+			else {
+				if (brd->isOnCheck(whiteKing)) {
+					ok = 4;
+				}
+				else if (brd->isOnCheck(blackKing)) {
+					ok = 1;
+				}
 			}
 
-			if (ok == 0 || ok == 1 && brd->isTurn(piece)) //if correct turn and move makes sense
-			{
+			if (!brd->isTurn(piece)) {// if the player tryes to mave a piece not on turn
+				ok = 2;
+			}
 
-				brd->pieces[locationPair.second] = piece;
+			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
+			{
 				brd->pieces.erase(locationPair.first);
+				brd->pieces[locationPair.second] = piece;
 				piece->setLocation(locationPair.second);
-				
+				brd->moveTurn();
 			}
-
-			if (brd->isOnCheck(blackKing)) { //check is black king is in check
-				brd->isTurn(blackKing) ?
-					strcpy_s(msgToGraphics, std::to_string(4).c_str()) :
-					strcpy_s(msgToGraphics, std::to_string(1).c_str());
+			else {
+				piece->setLocation(pieceCords);
 			}
-
-			if (brd->isOnCheck(whiteKing)) { //if white king is in check
-				brd->isTurn(whiteKing) ?
-					strcpy_s(msgToGraphics, std::to_string(1).c_str()) :
-					strcpy_s(msgToGraphics, std::to_string(4).c_str());
-
-			}
-
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
 
-			if (ok == 0 || ok == 1 && brd->isTurn(piece))
-			{
-				brd->moveTurn();
-			}
-		}
-		else
-		{
-			strcpy_s(msgToGraphics, std::to_string(2).c_str());
-		}
+			// return result to graphics		
+			p.sendMessageToGraphics(msgToGraphics);
 
-		
-		
-		
-		// return result to graphics		
-		p.sendMessageToGraphics(msgToGraphics);   
-
-		// get message from graphics
-		msgFromGraphics = p.getMessageFromGraphics();
+			// get message from graphics
+			msgFromGraphics = p.getMessageFromGraphics();
+		}
 	}
-
 	p.close();
 }
