@@ -66,12 +66,12 @@ void main()
 
 		BasePiece* piece = brd->pieces[locationPair.first];
 
-		string pieceCords = piece->getLocation(); // contains the cords piece had before moving
-		int ok = piece->move(locationPair.second, &(brd->pieces));
-		piece->setLocation(locationPair.second);
-
+		
 		if (piece)
 		{
+			int ok = piece->move(locationPair.second, &(brd->pieces));
+			brd->pieces.erase(locationPair.first);
+			brd->pieces[locationPair.second] = piece;
 			//black turn
 			if (brd->isTurn(blackKing)) {
 				if (brd->isOnCheck(blackKing)) {
@@ -97,13 +97,12 @@ void main()
 
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
-				brd->pieces.erase(locationPair.first);
-				brd->pieces[locationPair.second] = piece;
-				piece->setLocation(locationPair.second);
 				brd->moveTurn();
 			}
 			else {
-				piece->setLocation(pieceCords);
+				piece->setLocation(locationPair.first);
+				brd->pieces.erase(locationPair.second);
+				brd->pieces[locationPair.first] = piece;
 			}
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
