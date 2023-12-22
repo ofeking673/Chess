@@ -54,8 +54,8 @@ void main()
 	// get message from graphics
 	string msgFromGraphics = p.getMessageFromGraphics();
 
-	BasePiece* blackKing = brd->pieces["h7"];
-	BasePiece* whiteKing = brd->pieces["a8"];
+	BasePiece* blackKing = brd->pieces["d8"];
+	BasePiece* whiteKing = brd->pieces["d1"];
 
 	while (msgFromGraphics != "quit")
 	{
@@ -64,11 +64,16 @@ void main()
 
 		std::pair<string, string> locationPair = Board::getLocationPair(msgFromGraphics);
 
-		BasePiece* piece = brd->pieces[locationPair.first];
-
+		auto it = brd->pieces.find(locationPair.first);
+		BasePiece* piece = nullptr;
+		if (it != brd->pieces.end())
+		{
+			piece = it->second;
+		}
 		
 		if (piece)
 		{
+
 			int ok = piece->move(locationPair.second, &(brd->pieces));
 			brd->pieces.erase(locationPair.first);
 			brd->pieces[locationPair.second] = piece;
@@ -107,12 +112,18 @@ void main()
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
 
-			// return result to graphics		
-			p.sendMessageToGraphics(msgToGraphics);
-
-			// get message from graphics
-			msgFromGraphics = p.getMessageFromGraphics();
+			
 		}
+		else //if nothing in location
+		{
+			strcpy_s(msgToGraphics, std::to_string(2).c_str());
+		}
+
+		// return result to graphics		
+		p.sendMessageToGraphics(msgToGraphics);
+
+		// get message from graphics
+		msgFromGraphics = p.getMessageFromGraphics();
 	}
 	p.close();
 }
