@@ -10,6 +10,16 @@ bool Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>*
         return false;
     }
 
+    auto it = pieces_ptr->find(newLocation);
+    if (it != pieces_ptr->end())
+    {
+        if (this->getColor() == it->second->getColor())
+        {
+            return false;
+        }
+    }
+    
+
     int diff = same_x ? newLocation[1] - this->getLocation()[1] : newLocation[0] - this->getLocation()[0];
     
     if (diff > 0)
