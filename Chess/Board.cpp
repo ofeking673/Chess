@@ -27,12 +27,19 @@ Board::Board()
 	*/
 	BasePiece* ok = new King("d1", 'w');
 	this->pieces.insert(std::make_pair(std::string("d1"), ok));
-	ok = new Rook("h8", 'b');
-	this->pieces.insert(std::make_pair(std::string("h8"), ok));
+
 	ok = new King("d8", 'b');
 	this->pieces.insert(std::make_pair(std::string("d8"), ok));
+
+	ok = new Rook("h8", 'b');
+	this->pieces.insert(std::make_pair(std::string("h8"), ok));
+	ok = new Rook("a8", 'b');
+	this->pieces.insert(std::make_pair(std::string("a8"), ok));
+
 	ok = new Rook("h1", 'w');
 	this->pieces.insert(std::make_pair(std::string("h1"), ok));
+	ok = new Rook("a1", 'w');
+	this->pieces.insert(std::make_pair(std::string("a1"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");

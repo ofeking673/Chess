@@ -47,7 +47,7 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1");
+	strcpy_s(msgToGraphics, "r##k###r################################################R##K###R1");
 
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
@@ -70,13 +70,35 @@ void main()
 		{
 			piece = it->second;
 		}
-		
-		if (piece)
-		{
 
-			int ok = piece->move(locationPair.second, &(brd->pieces));
-			brd->pieces.erase(locationPair.first);
-			brd->pieces[locationPair.second] = piece;
+		BasePiece* dest = nullptr;
+		auto it2 = brd->pieces.find(locationPair.second);
+		if (it2 != brd->pieces.end()) {
+			 dest = it->second;
+		}
+		
+		if (piece && brd->isTurn(piece))
+		{
+			int ok = NULL;
+			if (dest)
+			{
+				if (piece->getColor() != dest->getColor()) // if different color, dont move.
+				{
+					int ok = piece->move(locationPair.second, &(brd->pieces));
+					brd->pieces.erase(locationPair.first);
+					brd->pieces[locationPair.second] = piece;
+				}
+				else
+				{
+					int ok = 4;
+				}
+			}
+			else
+			{
+				int ok = piece->move(locationPair.second, &(brd->pieces));
+				brd->pieces.erase(locationPair.first);
+				brd->pieces[locationPair.second] = piece;
+			}
 			//black turn
 			if (brd->isTurn(blackKing)) {
 				if (brd->isOnCheck(blackKing)) {
@@ -103,8 +125,6 @@ void main()
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
 				brd->moveTurn();
-			}
-			else {
 				piece->setLocation(locationPair.first);
 				brd->pieces.erase(locationPair.second);
 				brd->pieces[locationPair.first] = piece;
