@@ -31,6 +31,7 @@ Board::Board()
 	ok = new King("d8", 'b');
 	this->pieces.insert(std::make_pair(std::string("d8"), ok));
 
+
 	ok = new Rook("h8", 'b');
 	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 	ok = new Rook("a8", 'b');
@@ -40,12 +41,28 @@ Board::Board()
 	this->pieces.insert(std::make_pair(std::string("h1"), ok));
 	ok = new Rook("a1", 'w');
 	this->pieces.insert(std::make_pair(std::string("a1"), ok));
-	ok = new Bishop("f8", 'w');
-	this->pieces.insert(std::make_pair(std::string("f8"), ok));
-	ok = new Bishop("c8", 'w');
-	this->pieces.insert(std::make_pair(std::string("c8"), ok));
 
+
+	ok = new Bishop("f1", 'w');
+	this->pieces.insert(std::make_pair(std::string("f1"), ok));
+	ok = new Bishop("c1", 'w');
+	this->pieces.insert(std::make_pair(std::string("c1"), ok));
+
+	ok = new Bishop("f8", 'b');
+	this->pieces.insert(std::make_pair(std::string("f8"), ok));
+	ok = new Bishop("c8", 'b');
+	this->pieces.insert(std::make_pair(std::string("c8"), ok));
 	
+
+	ok = new Knight("b1", 'w');
+	this->pieces.insert(std::make_pair(std::string("b1"), ok));
+	ok = new Knight("g1", 'w');
+	this->pieces.insert(std::make_pair(std::string("g1"), ok));
+	
+	ok = new Knight("g8", 'b');
+	this->pieces.insert(std::make_pair(std::string("g8"), ok));
+	ok = new Knight("b8", 'b');
+	this->pieces.insert(std::make_pair(std::string("b8"), ok));
 	/*
 	* this->pieces.insert(knight, "b8");
 	* this->pieces.insert(bishop, "c8");
