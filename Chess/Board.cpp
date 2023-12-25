@@ -35,7 +35,6 @@ Board::Board()
 	this->pieces.insert(std::make_pair(std::string("h8"), ok));
 	ok = new Rook("a8", 'b');
 	this->pieces.insert(std::make_pair(std::string("a8"), ok));
-
 	ok = new Rook("h1", 'w');
 	this->pieces.insert(std::make_pair(std::string("h1"), ok));
 	ok = new Rook("a1", 'w');
@@ -81,16 +80,11 @@ void Board::moveTurn()
 	turn = !turn;
 }
 
-void Board::takePiece(std::string location)
-{
-	pieces.erase(location);
-}
-
 bool Board::isOnCheck(BasePiece* king)
 {
 	for (auto& piece : this->pieces) {
 		if (piece.second->getColor() != king->getColor() &&
-			piece.second->moveCheck(king->getLocation(), &(this->pieces))) {
+			!(piece.second->moveCheck(king->getLocation(), &(this->pieces)))) {
 
 			return true;
 		}

@@ -13,7 +13,6 @@ using std::cout;
 using std::endl;
 using std::string;
 
-
 void main()
 {
 	srand(time_t(NULL));
@@ -63,9 +62,10 @@ void main()
 		// according the protocol. Ex: e2e4           (move e2 to e4)
 
 		std::pair<string, string> locationPair = Board::getLocationPair(msgFromGraphics);
-
+		
 		auto it = brd->pieces.find(locationPair.first);
 		BasePiece* piece = nullptr;
+
 		if (it != brd->pieces.end())
 		{
 			piece = it->second;
@@ -76,6 +76,7 @@ void main()
 			int ok = piece->move(locationPair.second, &(brd->pieces));
 			brd->pieces.erase(locationPair.first);
 			brd->pieces[locationPair.second] = piece;
+			
 			//black turn
 			if (brd->isTurn(blackKing)) {
 				if (brd->isOnCheck(blackKing)) {
@@ -102,6 +103,14 @@ void main()
 			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
 			{
 				brd->moveTurn();
+				
+				// check if on mate
+				if (piece->getColor() == 'w' && piece->getLocation() == blackKing->getLocation()) {
+					ok = 8;
+				}
+				else if(piece->getColor() == 'b' && piece->getLocation() == whiteKing->getLocation()){
+					ok = 8;
+				}
 			}
 			else
 			{
@@ -109,16 +118,15 @@ void main()
 				brd->pieces.erase(locationPair.second);
 				brd->pieces[locationPair.first] = piece;
 			}
+			
 			// YOUR CODE
 			strcpy_s(msgToGraphics, std::to_string(ok).c_str()); // msgToGraphics should contain the result of the operation
-
-			
+		
 		}
 		else //if nothing in location
 		{
 			strcpy_s(msgToGraphics, std::to_string(2).c_str());
 		}
-
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);
 

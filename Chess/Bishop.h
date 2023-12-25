@@ -14,7 +14,6 @@ public:
 	//again no use for constructor, so we use default constructor
 
 
-	bool moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
-	int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
+	int moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) override;
 };
 

@@ -2,24 +2,20 @@
 
 #include "Board.h"
 
-bool BasePiece::isCheck(Board* brd)
-{
-	int i = 0, j = 0;
-	std::string kingCords = "";
 
-	for (i = 0; i < BoardLength; i++) {//finds king cordinates
-		
-		for (j = 0; j < BoardLength; j++) {
-			if (brd->_board[i * BoardLength + j] == 'K' + ((this->color) = 'w' ? ('k' - 'K') : 0)) {
-				kingCords += char('a' + i);
-				kingCords += char('0' + i);
-				j = BoardLength;
-				i = BoardLength;
-			}
+
+int BasePiece::move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
+{
+	int ok = moveCheck(newLocation, pieces_ptr);
+	if (ok == 0)// all legal result(1 and 8 excluded because moveCheck dosnt suport check and mate)
+	{
+		if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end()) {
+			(*pieces_ptr).erase(newLocation);
 		}
+		this->setLocation(newLocation);
 	}
 
-	return (this->moveCheck(kingCords, &(brd->pieces)) ? 8 : 1);
+	return ok;
 }
 
 char BasePiece::getColor()
