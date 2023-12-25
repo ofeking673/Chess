@@ -90,10 +90,6 @@ Board::Board()
 		this->pieces.insert(std::make_pair(string, ok));
 		string = "";
 	}
-	/*
-	* this->pieces.insert(pawn, a-h 7) LOOPS
-	* this->pieces.insert(pawn, a-h 2) LOOPS
-	*/
 	
 	this->turn = true;
 }

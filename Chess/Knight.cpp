@@ -1,24 +1,30 @@
 #include "Knight.h"
 
-bool Knight::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
+int Knight::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
 {
 	string curLoc = this->getLocation();
-	return (newLocation[0] == curLoc[0] + 2 && newLocation[1] == curLoc[1] + 1 ||
+
+	if (curLoc == newLocation) {
+		return 7;
+	}
+
+	//if there is a piece in the newLocation and it has the same color as the piece moving return false
+	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end() &&
+		(*pieces_ptr)[newLocation]->getColor() == (*pieces_ptr)[curLoc]->getColor()) {
+		return 3;
+	}
+
+	if (!(newLocation[0] == curLoc[0] + 2 && newLocation[1] == curLoc[1] + 1 ||
 		newLocation[0] == curLoc[0] + 1 && newLocation[1] == curLoc[1] + 2 ||
 		newLocation[0] == curLoc[0] - 2 && newLocation[1] == curLoc[1] + 1 ||
 		newLocation[0] == curLoc[0] + 2 && newLocation[1] == curLoc[1] - 1 ||
 		newLocation[0] == curLoc[0] - 2 && newLocation[1] == curLoc[1] - 1 ||
 		newLocation[0] == curLoc[0] + 1 && newLocation[1] == curLoc[1] - 2 ||
 		newLocation[0] == curLoc[0] - 1 && newLocation[1] == curLoc[1] - 2 ||
-		newLocation[0] == curLoc[0] - 1 && newLocation[1] == curLoc[1] + 2); //source: trust me bro
-}
-
-int Knight::move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
-{
-	if (moveCheck(newLocation, pieces_ptr))
+		newLocation[0] == curLoc[0] - 1 && newLocation[1] == curLoc[1] + 2))
 	{
-		this->setLocation(newLocation);
-		return 0;
+		return 6;
 	}
-	return 3;
+
+	return 0;
 }
