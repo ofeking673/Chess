@@ -6,12 +6,12 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
     bool same_y = this->getLocation()[1] == newLocation[1];
 
     if (same_x && same_y) {
-        return 7;
+        return SAME_MOVE_LOCATION;
     }
 
     if (!(same_x || same_y)) {
         // if NOT same x or y level
-        return 6;
+        return ILLEGAL_MOVEMENT;
     }
 
     auto it = pieces_ptr->find(newLocation);
@@ -19,7 +19,7 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
     {
         if (this->getColor() == it->second->getColor())
         {
-            return 3;
+            return PIECE_IN_LOCATION;
         }
     }
     
@@ -35,7 +35,7 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
                 char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]); // if same x, go over y, if not, enlarge x
 
             if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
-                return 6;
+                return ILLEGAL_MOVEMENT;
             }
         }
     }
@@ -48,10 +48,10 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
                 char(this->getLocation()[0] + i) + std::string(1, this->getLocation()[1]); // if same x, y goes DOWN, if not, x goes DOWN
 
             if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
-                return 6;
+                return ILLEGAL_MOVEMENT;
             }
         }
     }
 
-    return 0;
+    return CORRECT;
 }

@@ -11,44 +11,44 @@ int Pawn::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
 		if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end()) {
 			//if deiffrent color piece
 			if ((*pieces_ptr)[newLocation]->getColor() != this->getColor()) {
-				return 0;
+				return CORRECT;
 			}
 			else {
-				return 3;
+				return PIECE_IN_LOCATION;
 			}
 		}
 		else {
-			return 6;
+			return ILLEGAL_MOVEMENT;
 		}
 	}
 
 	// if same location
 	if (newLocation == currLocation)
 	{
-		return 7;
+		return SAME_MOVE_LOCATION;
 	}
 
 	if ((newLocation[0] != currLocation[0]) || (currLocation[1] != newLocation[1] + 1 * isDown) && (this->hasMoved && currLocation[1] != newLocation[1] + 1 * isDown)) {
-		return 6;
+		return ILLEGAL_MOVEMENT;
 	}
 
 	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end()) {
 		//if deiffrent color piece
 		if ((*pieces_ptr)[newLocation]->getColor() == this->getColor()) {
-			return 3;
+			return PIECE_IN_LOCATION;
 		}
 	}
 	//check next row || same column
 	if (newLocation[1] == currLocation[1] + 1 * isDown || newLocation[0] == currLocation[0]) {
-		return 0;
+		return CORRECT;
 	}
 
 	if (this->hasMoved) {
 		//check next next row || same column
 		if (newLocation[1] == currLocation[1] + 2 * isDown || newLocation[0] == currLocation[0]) {
-			return 0;
+			return CORRECT;
 		}
 	}
 
-	return 6;
+	return ILLEGAL_MOVEMENT;
 }

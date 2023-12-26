@@ -9,12 +9,12 @@ int Bishop::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>
     int i = 0;
 
     if (currLocation == newLocation) {
-        return 7;
+        return SAME_MOVE_LOCATION;
     }
     
     if (abs(currLocation[0] - newLocation[0]) != abs(currLocation[1] - newLocation[1]))
     {
-        return 6;
+        return ILLEGAL_MOVEMENT;
     }
 
 
@@ -27,15 +27,15 @@ int Bishop::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>
         iterLine[1] = currLocation[1] + (i * ySlope);
 
         if ((*pieces_ptr).find(iterLine) != (*pieces_ptr).end()) {
-            return 6;
+            return ILLEGAL_MOVEMENT;
         }
     }
 
     //if there is a piece in the newLocation and it has the same color as the piece moving return false
     if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end() &&
         (*pieces_ptr)[newLocation]->getColor() == (*pieces_ptr)[currLocation]->getColor()) {
-        return 3;
+        return PIECE_IN_LOCATION;
     }
 
-    return 0;
+    return CORRECT;
 }

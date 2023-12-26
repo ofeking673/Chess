@@ -10,21 +10,21 @@ int King::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
 	// if same location
 	if (newLocation == this->getLocation())
 	{ 
-		return 7;
+		return SAME_MOVE_LOCATION;
 	}
 
 	// if same color
 	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end() && (*pieces_ptr)[newLocation]->getColor() == this->getColor())
 	{
-		return 3;
+		return PIECE_IN_LOCATION;
 	}
 
 	//need to check if +1 in any direction
 	if(std::abs(newRow - currentRow) <= 1 && std::abs(newCol - currentCol) <= 1)
 	{
-		return 0;
+		return CORRECT;
 	}
 	else {
-		return 6;
+		return ILLEGAL_MOVEMENT;
 	}
 }

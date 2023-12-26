@@ -2,6 +2,18 @@
 #include <iostream>
 #include <map>
 
+#define CORRECT 0
+#define CHECK 1
+#define NO_PIECE 2
+#define PIECE_IN_LOCATION 3
+#define CHECK_WILL_OCCUR 4
+#define WRONG_INDEX 5
+#define ILLEGAL_MOVEMENT 6
+#define SAME_MOVE_LOCATION 7
+#define CHECKMATE 8
+
+
+
 class Board;
 
 class BasePiece
