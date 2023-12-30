@@ -13,18 +13,22 @@ int King::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
 		return SAME_MOVE_LOCATION;
 	}
 
-	// if same color
-	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end() && (*pieces_ptr)[newLocation]->getColor() == this->getColor())
-	{
-		return PIECE_IN_LOCATION;
-	}
-
 	//need to check if +1 in any direction
-	if(std::abs(newRow - currentRow) <= 1 && std::abs(newCol - currentCol) <= 1)
+	if(!(std::abs(newRow - currentRow) <= 1 && std::abs(newCol - currentCol) <= 1))
 	{
-		return CORRECT;
-	}
-	else {
 		return ILLEGAL_MOVEMENT;
 	}
+
+	//if there is a piece in the newLocation 
+	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end())
+	{
+		// if piece in newLocation has the same color as the piece moving
+		if ((*pieces_ptr)[newLocation]->getColor() == this->getColor())
+		{
+			return PIECE_IN_LOCATION;
+		}
+		// if not
+		(*pieces_ptr).erase(newLocation);
+	}
+	return CORRECT;
 }

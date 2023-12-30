@@ -74,22 +74,25 @@ void main()
 		if (piece && brd->isTurn(piece))
 		{
 			int ok = piece->move(locationPair.second, &(brd->pieces));
-			brd->pieces.erase(locationPair.first);
-			brd->pieces[locationPair.second] = piece;
-			
+			if (ok == CORRECT) {
+				brd->pieces.erase(locationPair.first);
+				brd->pieces[locationPair.second] = piece;
+			}
 			//black turn
-			if (brd->isTurn(blackKing)) {
+			if (brd->isTurn(blackKing) && ok == 0) {
 				if (brd->isOnCheck(blackKing)) {
 					ok = 4;
+					brd->movePiece(locationPair.second, locationPair.first);
 				}
 				else if (brd->isOnCheck(whiteKing)) {
 					ok = 1;
 				}
 			}
 			//white turn
-			else {
+			else if(ok == 0) {
 				if (brd->isOnCheck(whiteKing)) {
 					ok = 4;
+					brd->movePiece(locationPair.second, locationPair.first);
 				}
 				else if (brd->isOnCheck(blackKing)) {
 					ok = 1;
@@ -98,12 +101,15 @@ void main()
 
 			if (!brd->isTurn(piece)) {// if the player tryes to mave a piece not on turn
 				ok = 2;
+				brd->movePiece(locationPair.second, locationPair.first);
 			}
 
-			if (ok == 0 || ok == 1)/* && brd->isTurn(piece))*/
+			if ((ok == 0 || ok == 1) && brd->isTurn(piece))
 			{
 				brd->moveTurn();
-				
+				char nextTurnColor = piece->getColor() == 'b' ? 'w' : 'b';
+				BasePiece* otherKing = nextTurnColor == 'b' ? blackKing : whiteKing;
+
 				// check if on mate
 				if (piece->getColor() == 'w' && piece->getLocation() == blackKing->getLocation()) {
 					ok = 8;
@@ -111,12 +117,10 @@ void main()
 				else if(piece->getColor() == 'b' && piece->getLocation() == whiteKing->getLocation()){
 					ok = 8;
 				}
-			}
-			else
-			{
-				piece->setLocation(locationPair.first);
-				brd->pieces.erase(locationPair.second);
-				brd->pieces[locationPair.first] = piece;
+				
+				else if(brd->isMate(otherKing)){
+					ok = 8;
+				}
 			}
 			
 			// YOUR CODE

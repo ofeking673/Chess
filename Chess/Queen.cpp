@@ -9,10 +9,10 @@ int Queen::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>*
     int ok = rook->moveCheck(newLocation, pieces_ptr);
     delete rook;
     if (ok == 0 || ok == 1)
-    {
-        ok = bishop->moveCheck(newLocation, pieces_ptr);
-        delete bishop;
+    {        
         return ok;
     }
+    ok = bishop->moveCheck(newLocation, pieces_ptr);
+    delete bishop;
     return ok;
 }

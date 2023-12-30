@@ -8,12 +8,6 @@ int Knight::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>
 		return SAME_MOVE_LOCATION;
 	}
 
-	//if there is a piece in the newLocation and it has the same color as the piece moving return false
-	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end() &&
-		(*pieces_ptr)[newLocation]->getColor() == (*pieces_ptr)[curLoc]->getColor()) {
-		return PIECE_IN_LOCATION;
-	}
-
 	if (!(newLocation[0] == curLoc[0] + 2 && newLocation[1] == curLoc[1] + 1 ||
 		newLocation[0] == curLoc[0] + 1 && newLocation[1] == curLoc[1] + 2 ||
 		newLocation[0] == curLoc[0] - 2 && newLocation[1] == curLoc[1] + 1 ||
@@ -24,6 +18,18 @@ int Knight::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>
 		newLocation[0] == curLoc[0] - 1 && newLocation[1] == curLoc[1] + 2))
 	{
 		return ILLEGAL_MOVEMENT;
+	}
+
+	//if there is a piece in the newLocation 
+	if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end())
+	{
+		// if piece in newLocation has the same color as the piece moving
+		if ((*pieces_ptr)[newLocation]->getColor() == this->getColor())
+		{
+			return PIECE_IN_LOCATION;
+		}
+		// if not
+		(*pieces_ptr).erase(newLocation);
 	}
 
 	return CORRECT;

@@ -11,6 +11,8 @@
 #define ILLEGAL_MOVEMENT 6
 #define SAME_MOVE_LOCATION 7
 #define CHECKMATE 8
+#define EATING_POTENTIAL 9// cant be retuened to frontend | used for eat checking
+ 
 
 
 
@@ -27,7 +29,7 @@ public:
 	//no use for constructor because we dont use anything, so we use c++ default constructor
 	virtual int move(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr);
 	virtual int moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr) = 0;
-
+	virtual bool canEat(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr);
 
 	char getColor();
 	std::string getLocation();

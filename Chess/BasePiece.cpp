@@ -9,13 +9,18 @@ int BasePiece::move(std::string newLocation, std::map<std::string, BasePiece*>* 
 	int ok = moveCheck(newLocation, pieces_ptr);
 	if (ok == 0)// all legal result(1 and 8 excluded because moveCheck dosnt suport check and mate)
 	{
-		if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end()) {
-			(*pieces_ptr).erase(newLocation);
-		}
 		this->setLocation(newLocation);
 	}
 
 	return ok;
+}
+
+bool BasePiece::canEat(std::string newLocation, std::map<std::string, BasePiece*>* pieces_ptr)
+{
+	if(this->moveCheck(newLocation, pieces_ptr) == CORRECT){
+		return true;
+	}
+	return false;
 }
 
 char BasePiece::getColor()

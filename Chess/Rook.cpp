@@ -13,17 +13,7 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
         // if NOT same x or y level
         return ILLEGAL_MOVEMENT;
     }
-
-    auto it = pieces_ptr->find(newLocation);
-    if (it != pieces_ptr->end())
-    {
-        if (this->getColor() == it->second->getColor())
-        {
-            return PIECE_IN_LOCATION;
-        }
-    }
     
-
     int diff = same_x ? newLocation[1] - this->getLocation()[1] : newLocation[0] - this->getLocation()[0];
     
     if (diff > 0)
@@ -51,6 +41,18 @@ int Rook::moveCheck(std::string newLocation, std::map<std::string, BasePiece*>* 
                 return ILLEGAL_MOVEMENT;
             }
         }
+    }
+
+    //if there is a piece in the newLocation 
+    if ((*pieces_ptr).find(newLocation) != (*pieces_ptr).end())
+    {
+        // if piece in newLocation has the same color as the piece moving
+        if ((*pieces_ptr)[newLocation]->getColor() == this->getColor())
+        {
+            return PIECE_IN_LOCATION;
+        }
+        // if not
+        (*pieces_ptr).erase(newLocation);
     }
 
     return CORRECT;

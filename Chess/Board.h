@@ -19,10 +19,12 @@ public:
 
 	Board();
 	~Board();
-
+	
+	void movePiece(std::string src, std::string dst);
 	bool isTurn(BasePiece* piece);
 	void moveTurn();
-	bool isOnCheck(BasePiece* king); // checks if black king is under check
+	bool isOnCheck(BasePiece* king);
+	bool isMate(BasePiece* king);
 	static std::pair<std::string, std::string> getLocationPair(std::string location) { return std::pair<std::string, std::string>(location.substr(0, 2), location.substr(2, 2)); };
 };
 

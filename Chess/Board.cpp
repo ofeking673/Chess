@@ -102,6 +102,13 @@ Board::~Board()
 	}
 }
 
+void Board::movePiece(std::string src, std::string dst) {
+	BasePiece* piece = this->pieces[src];
+	piece->setLocation(dst);
+	this->pieces.erase(src);
+	this->pieces[dst] = piece;
+}
+
 bool Board::isTurn(BasePiece* piece)
 {
 	return (piece->getColor() == ((turn) ? 'b' : 'w'));
@@ -116,11 +123,65 @@ bool Board::isOnCheck(BasePiece* king)
 {
 	for (auto& piece : this->pieces) {
 		if (piece.second->getColor() != king->getColor() &&
-			!(piece.second->moveCheck(king->getLocation(), &(this->pieces)))) {
-
+			piece.second->canEat(king->getLocation(), &(this->pieces))) {
+			this->pieces[king->getLocation()] = king;
 			return true;
 		}
 	}
 
 	return false;
+}
+
+bool Board::isMate(BasePiece* king)
+{
+
+	std::string Cords = "b2";
+	std::string newCords = "a1";
+	std::string kingCords = king->getLocation();
+	int x = 0, y = 0;
+	int i = 0;
+
+	for (i = 0; i < BoardLength / 2; i++) {
+		x = i % 2;
+		y = !(i % 2);
+		if (i >= 2) {
+			x *= -1;
+			y *= -1;
+		}
+		newCords[0] = (Cords[0] + x);
+		newCords[1] = (Cords[1] + y);
+		if (((newCords[0] <= 'h' && newCords[0] >= 'a') &&
+			(newCords[1] <= '8' && newCords[1] >= '1')) &&
+			(this->pieces.find(newCords) == this->pieces.end() || 
+			this->pieces[newCords]->getColor() != king->getColor())) {
+			king->setLocation(newCords);
+			if (!(this->isOnCheck(king))) {
+				king->setLocation(kingCords);
+				return false;
+			}
+		}
+		
+	}
+
+	for (i = i; i < BoardLength; i++) {
+		x = i % 2 == 0 ? 1 : -1;
+		y = i % 2 == 0 ? -1 : 1;
+		if (i >= 6) {
+			y *= -1;
+		}
+
+		newCords[0] = (Cords[0] + x);
+		newCords[1] = (Cords[1] + y);
+		if (((newCords[0] <= 'h' && newCords[0] >= 'a') &&
+			(newCords[1] <= '8' && newCords[1] >= '1')) &&
+			(this->pieces.find(newCords) == this->pieces.end() ||
+			this->pieces[newCords]->getColor() != king->getColor())) {
+			king->setLocation(newCords);
+			if (!(this->isOnCheck(king))) {
+				king->setLocation(kingCords);
+				return false;
+			}
+		}
+	}
+	return true;
 }
