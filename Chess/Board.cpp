@@ -135,7 +135,6 @@ bool Board::isOnCheck(BasePiece* king)
 bool Board::isMate(BasePiece* king)
 {
 
-	std::string Cords = "b2";
 	std::string newCords = "a1";
 	std::string kingCords = king->getLocation();
 	int x = 0, y = 0;
@@ -148,8 +147,8 @@ bool Board::isMate(BasePiece* king)
 			x *= -1;
 			y *= -1;
 		}
-		newCords[0] = (Cords[0] + x);
-		newCords[1] = (Cords[1] + y);
+		newCords[0] = (kingCords[0] + x);
+		newCords[1] = (kingCords[1] + y);
 		if (((newCords[0] <= 'h' && newCords[0] >= 'a') &&
 			(newCords[1] <= '8' && newCords[1] >= '1')) &&
 			(this->pieces.find(newCords) == this->pieces.end() || 
@@ -170,8 +169,8 @@ bool Board::isMate(BasePiece* king)
 			y *= -1;
 		}
 
-		newCords[0] = (Cords[0] + x);
-		newCords[1] = (Cords[1] + y);
+		newCords[0] = (kingCords[0] + x);
+		newCords[1] = (kingCords[1] + y);
 		if (((newCords[0] <= 'h' && newCords[0] >= 'a') &&
 			(newCords[1] <= '8' && newCords[1] >= '1')) &&
 			(this->pieces.find(newCords) == this->pieces.end() ||

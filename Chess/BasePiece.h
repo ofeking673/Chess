@@ -11,12 +11,6 @@
 #define ILLEGAL_MOVEMENT 6
 #define SAME_MOVE_LOCATION 7
 #define CHECKMATE 8
-#define EATING_POTENTIAL 9// cant be retuened to frontend | used for eat checking
- 
-
-
-
-class Board;
 
 class BasePiece
 {

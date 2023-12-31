@@ -4,7 +4,6 @@
 
 #define BoardLength 8
 #define BoardSize 66
-class BasePiece;
 
 class Board
 {

@@ -117,9 +117,10 @@ void main()
 				else if(piece->getColor() == 'b' && piece->getLocation() == whiteKing->getLocation()){
 					ok = 8;
 				}
-				
-				else if(brd->isMate(otherKing)){
-					ok = 8;
+				else if (ok == 1) {
+					if (brd->isMate(otherKing)) {
+						ok = 8;
+					}
 				}
 			}
 			
